@@ -4,31 +4,25 @@ reset = ->
 
 # Takes a raw github URL and makes the api url
 formatUrl = (baseUrl) ->
-  newurl = baseUrl.split('/')
-  newurl[2] = "api."+newurl[2]+"/repos"
-  newurl = newurl.join('/')+"/issues"
-  newurl
+  theSplit = baseUrl.split('/')
+  repo = theSplit[3]+"/"+theSplit[4]
+  "https://api.github.com/repos/#{repo}/issues?state=closed"
 
+# prints a user to the div
+printIssue = (user) ->
+  $('#issueRacer').append """
+    <div>
+      <img width='50px' src='#{user.avatar_url}'/>
+      #{user.login}
+    </div>
+  """
 
 # Does stuff
 doStuff = (issuePath) ->
-  $.getJSON issuePath+"?state=closed", (response) ->
-    open = 0
-    closed = 0
+  
+  $.getJSON issuePath, (response) ->
     for issue in response
-      if issue.state == "open"
-        open++
-      else
-        closed++
-
-      $('#issueRacer').append """
-        <p><img width='50px' src='#{issue.user.avatar_url}'/> #{issue.user.login}</p>
-      """
-
-    $('#issueRacer').append """
-      <p>closed: #{closed} open: #{open}</p>
-    """
-    console.log open, closed
+      printIssue issue.user
 
 #  Initialize everything!
 $ ->
