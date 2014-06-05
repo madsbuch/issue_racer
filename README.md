@@ -1,2 +1,2 @@
-issue_racer
+IssueRacer
 ===========
