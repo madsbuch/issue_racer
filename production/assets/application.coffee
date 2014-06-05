@@ -13,7 +13,7 @@ userList = []
 printIssue = (user) ->
   if $.inArray(user.login, userList) >= 0
     return
-    
+
   userList.push(user.login)
   $('#collaboraters').append """
     <div data-name="#{user.login}" class="collaborator" style="float:left;">
@@ -32,13 +32,14 @@ doStuff = (issuePath) ->
       count++
     $('#collaboraters').attr("data-open", count)
 
-  # Closed issues
-  $.getJSON issuePath+"?state=closed", (response) ->
-    count=0
-    for issue in response
-      printIssue issue.user
-      count++
-    $('#collaboraters').attr("data-closed", count)
+    # Closed issues
+    $.getJSON issuePath+"?state=closed", (response) ->
+      count=0
+      for issue in response
+        printIssue issue.user
+        count++
+      $('#collaboraters').attr("data-closed", count)
+      $(document).trigger('stuffDone')
   
 
 #  Initialize everything!
