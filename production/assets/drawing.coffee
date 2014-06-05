@@ -3,7 +3,7 @@ jQuery ->
   numberOfIssues = [0..10]
   numberOfRunners = [0..1]
 
-  iso = new Isomer(document.getElementById("art"), {'originX': 0, 'originY': 0})
+  iso = new Isomer(document.getElementById("art"), {originX: 0, originY: 0, scale : 50})
 
 
   Shape = Isomer.Shape
@@ -36,13 +36,13 @@ jQuery ->
     iso.add(
       Shape.Prism(new Point(x,y,z), 1,1,3)
       .scale(new Point(x,y,z), 0.1, 0.1, 0.1)
-      , blue
+      , white
     )
 
     iso.add(
       Shape.Prism(new Point(x,y+5,z), 1,1,3)
       .scale(new Point(x,y,z), 0.1, 0.1, 0.1)
-      , blue
+      , white
     )
 
     iso.add(
