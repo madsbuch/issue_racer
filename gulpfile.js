@@ -50,7 +50,9 @@ var paths =
 
 gulp.task('styles', function() {
   return gulp.src( paths.styles )
+  .pipe(plumber())
   .pipe(sass({ style: 'expanded' }))
+  .pipe(plumber.stop())
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'ios 6', 'android 4'))
   .pipe(rename({ suffix: '.min' }))
   .pipe(minifycss())
@@ -78,10 +80,9 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
   return gulp.src(paths.scripts)
-  .pipe(coffee({bare: true})
-    .on('error', gutil.log)
-    .on('error', gutil.beep)
-  )
+  .pipe(plumber())
+  .pipe(coffee())
+  .pipe(plumber.stop())
   .pipe(rename({ suffix: '.min' }))
   //.pipe(uglify())
   .pipe(gulp.dest('public/assets/'))
