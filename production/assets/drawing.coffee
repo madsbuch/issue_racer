@@ -1,9 +1,9 @@
 jQuery ->
 
-  numberOfIssues = [0..9]
-  numberOfRunners = [0..2]
+  numberOfIssues = [0..10]
+  numberOfRunners = [0..1]
 
-  iso = new Isomer(document.getElementById("art"))
+  iso = new Isomer(document.getElementById("art"), {'originX': 0, 'originY': 0})
 
 
   Shape = Isomer.Shape
@@ -14,60 +14,47 @@ jQuery ->
   blue = new Color(50, 60, 160)
   white = new Color(255, 255, 255)
 
+  # Scene
   iso.add(
-    new Path([
-      Point(-1,0,0)
-      Point(10,0,0)
-      Point(10,5,0)
-      Point(-1,5,0)]
-    )
+    new Shape.Prism(new Point(0,2,0), numberOfIssues.length , 2 , 0.1)
     , new Color(181, 90, 60)
   )
 
   for i in numberOfRunners
     iso.add(
       new Path([
-        Point(-1,0.1,1)
-        Point(-1,0.2,1)
-        Point(10,0.2,1)
-        Point(10,0.1,1)
+        Point(0.12,0.1,1)
+        Point(0.12,0.2,1)
+        Point(numberOfIssues.length+0.1,0.2,1)
+        Point(numberOfIssues.length+0.1,0.1,1)
       ])
       .translate(-2,0.45+i,1)
       , white
     )
 
-  drawHedge = (_iso,x,y,z) ->
-    _iso.add(
+  drawHedge = (x,y,z) ->
+    iso.add(
       Shape.Prism(new Point(x,y,z), 1,1,3)
       .scale(new Point(x,y,z), 0.1, 0.1, 0.1)
       , blue
     )
 
-    _iso.add(
+    iso.add(
       Shape.Prism(new Point(x,y+5,z), 1,1,3)
       .scale(new Point(x,y,z), 0.1, 0.1, 0.1)
       , blue
     )
 
-    _iso.add(
+    iso.add(
       Shape.Prism(new Point(x,y,z+3), 1,6,1)
       .scale(new Point(x,y,z), 0.1, 0.1, 0.1)
       , red
     )
 
-  for issue in numberOfIssues
-    $('.application-container').append """
-      <div class="hedge">
-        <canvas width="100" height="100" id="hedge-#{issue}">
-
-        </canvas>
-      </div>
-    """
+  spacer = (numberOfIssues.length - 0.5 ) / numberOfIssues.length
 
   for issue in numberOfIssues
-    hedgeIso = new Isomer(document.getElementById("hedge-#{issue}"))
-
-    drawHedge(hedgeIso,1,1,-1)
+    drawHedge(issue*spacer+2 ,3.8,-1)
 
 
 
