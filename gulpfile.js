@@ -31,8 +31,8 @@ var gulp         = require('gulp'),
 // Assets paths
 var paths =
 {
-  styles    : ['app/assets/*.scss'],
-  scripts   : ['app/assets/*.coffee']
+  styles    : ['production/assets/*.scss'],
+  scripts   : ['production/assets/*.coffee']
 };
 
 
@@ -54,7 +54,7 @@ gulp.task('styles', function() {
   .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'ios 6', 'android 4'))
   .pipe(rename({ suffix: '.min' }))
   .pipe(minifycss())
-  .pipe(gulp.dest('public/assets/css/'))
+  .pipe(gulp.dest('public/assets/'))
   .pipe(livereload(server))
   .pipe(notify({ message: 'Styles compiled and minified...' }));
 });
@@ -84,7 +84,7 @@ gulp.task('scripts', function() {
   )
   .pipe(rename({ suffix: '.min' }))
   //.pipe(uglify())
-  .pipe(gulp.dest('public/assets/js/'))
+  .pipe(gulp.dest('public/assets/'))
   .pipe(livereload(server))
   .pipe(notify({ message: 'Scripts compiled and minified...' }));
 });
