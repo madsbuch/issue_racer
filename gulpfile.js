@@ -31,8 +31,8 @@ var gulp         = require('gulp'),
 // Assets paths
 var paths =
 {
-  styles    : ['app/assets/*.scss'],
-  scripts   : ['app/assets/*.coffee']
+  styles    : ['production/assets/*.scss'],
+  scripts   : ['production/assets/*.coffee']
 };
 
 
