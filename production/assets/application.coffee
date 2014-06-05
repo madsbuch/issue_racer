@@ -12,8 +12,8 @@ userList = []
 # prints a user to the div
 printIssue = (user) ->
   if $.inArray(user.login, userList) >= 0
-    console.log userList
     return
+    
   userList.push(user.login)
   $('#collaboraters').append """
     <div data-name="#{user.login}" class="collaborator" style="float:left;">
@@ -46,12 +46,12 @@ $ ->
     init = do ->
     # load user
 
-    issuePath = 'https://api.github.com/repos/laravel/framework/issues'
-    doStuff issuePath
-    $(document).on "change", "[name='repo']", (e) ->
-       path = $("[name='repo']").val()
-       # validate here
-       reset()
-       doStuff (formatUrl path)
+      issuePath = 'https://api.github.com/repos/laravel/framework/issues'
+      doStuff issuePath
+      $(document).on "change", "[name='repo']", (e) ->
+         path = $("[name='repo']").val()
+         # validate here
+         reset()
+         doStuff (formatUrl path)
 
     
